@@ -4,11 +4,16 @@ const MODERN_ACTIVITY= 15;
 const HALF_LIFE_PERIOD= 5730;
 
 module.exports = function dateSample(sampleActivity) {
-  const times = sampleActivity / HALF_LIFE_PERIOD;
+  if ( typeof sampleActivity !== 'string') return false;
+  sampleActivity = Number(sampleActivity);
+  if (isNaN(sampleActivity)) return false;
+  if (sampleActivity <= 0 || sampleActivity > 15) return false;
+
+  const times = Number(sampleActivity) / MODERN_ACTIVITY;
 
   const k = 0.693 / HALF_LIFE_PERIOD;
 
-  const t = Math.ceil(Math.log10(times)/k)
+  const t = Math.round(Math.log(times)/k)
 
-  return t;
+  return Math.abs(Math.ceil(t));
 };
