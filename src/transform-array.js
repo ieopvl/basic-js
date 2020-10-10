@@ -1,6 +1,7 @@
 const CustomError = require("../extensions/custom-error");
 
 module.exports = function transform(arr) {
+
   if (!Array.isArray(arr)) throw new Error("THROWN");
 
   const result = [];
@@ -31,41 +32,3 @@ module.exports = function transform(arr) {
 
   return result;
 };
-
-
-/**
- module.exports = function transform(arr) {
-  if (!Array.isArray(arr)) throw new Error("THROWN");
-
-  const result = [...arr];
-  let done = true;
-
-  for (let i = 0; i <= result.length; i++) {
-    const current = result[i];
-    const prev = result[i - 1];
-    const next = result[i + 1];
-
-    if (current === '--discard-next') {
-      next ? result.splice(i, 2) : result.splice(i, 1);
-      done = false;
-      i -= 1;
-    }
-    else if (current === '--discard-prev') {
-      prev && done ? result.splice(i - 1, 2) : result.splice(i, 1);
-      done = true;
-      i -= 2;
-    }
-    else if ( current === '--double-next') {
-      next ? result.splice(i, 1, result[i + 1]) : result.splice(i, 1);
-    }
-    else if (current === '--double-prev') {
-      prev &&  done ? result.splice(i, 1, result[i - 1]) : result.splice(i, 1);
-      done = true;
-    }
-    else {
-      done = true;
-    }
-  }
-  return result;
-};
- */
